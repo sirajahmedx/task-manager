@@ -157,20 +157,25 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-white">
+      <div className="flex items-center justify-center h-screen bg-black">
         <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-gray-900 text-white">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 py-4">
+      <header className="bg-black border-b border-slate-800 py-4 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <Kanban className="text-blue-600" size={28} />
-            <h1 className="text-2xl font-bold text-gray-900">Task Manager</h1>
+            <Kanban
+              className="text-blue-500 drop-shadow-[0_0_8px_rgba(37,99,235,0.5)]"
+              size={28}
+            />
+            <h1 className="text-2xl font-bold text-white tracking-tight drop-shadow-[0_0_8px_rgba(37,99,235,0.15)]">
+              Task Manager
+            </h1>
           </div>
         </div>
       </header>

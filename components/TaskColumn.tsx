@@ -41,26 +41,28 @@ export default function TaskColumn({
 
   return (
     <div
-      className="bg-gray-100 shadow-2xl border  rounded-lg p-4 h-fit min-h-[500px]"
+      className="bg-gradient-to-br from-black via-slate-900 to-gray-900 shadow-2xl border border-slate-800 rounded-2xl p-6 h-fit min-h-[520px] transition-all hover:shadow-blue-900"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="font-semibold text-gray-800 text-lg">{title}</h2>
-        <span className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="font-bold text-white text-lg tracking-tight drop-shadow-sm">
+          {title}
+        </h2>
+        <span className="bg-slate-800 text-gray-200 text-xs px-3 py-1 rounded-full shadow-sm font-semibold border border-gray-700">
           {tasks.length}
         </span>
       </div>
 
       <button
         onClick={() => onAddTask(status)}
-        className="w-full border-2 border-dashed border-gray-300 rounded-lg p-3 mb-4 text-gray-500 hover:border-blue-400 hover:text-blue-600 transition-colors flex items-center justify-center gap-2"
+        className="w-full border-2 border-dashed border-slate-700 rounded-xl p-3 mb-6 text-gray-400 hover:border-blue-500 hover:text-blue-400 transition-colors flex items-center justify-center gap-2 font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-800 bg-black/60"
       >
-        <Plus size={16} />
+        <Plus size={18} className="text-blue-500" />
         Add Task
       </button>
 
-      <div className="space-y-0">
+      <div className="space-y-2">
         {tasks.map((task) => (
           <div
             key={task._id}

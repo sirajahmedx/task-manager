@@ -25,39 +25,39 @@ export default function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
 
   return (
     <div
-      className="bg-white border border-gray-200 rounded-lg p-4 mb-3 shadow-md hover:shadow-lg transition-shadow"
+      className="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-2 shadow-md hover:shadow-blue-900 transition-all group relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="font-medium text-gray-900 text-sm leading-5 flex-1 mr-2">
+      <div className="flex justify-between items-start mb-1">
+        <h3 className="font-semibold text-white text-base leading-5 flex-1 mr-2 tracking-tight">
           {task.title}
         </h3>
         {isHovered && (
           <div className="flex gap-1">
             <button
               onClick={handleEdit}
-              className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
+              className="p-1 text-gray-400 hover:text-blue-500 transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
               title="Edit task"
             >
-              <Edit2 size={14} />
+              <Edit2 size={15} />
             </button>
             <button
               onClick={handleDelete}
-              className="p-1 text-gray-400 hover:text-red-600 transition-colors"
+              className="p-1 text-gray-400 hover:text-red-500 transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-red-400"
               title="Delete task"
             >
-              <Trash2 size={14} />
+              <Trash2 size={15} />
             </button>
           </div>
         )}
       </div>
       {task.description && (
-        <p className="text-gray-600 text-xs leading-4 line-clamp-3">
+        <p className="text-gray-300 text-xs leading-5 line-clamp-3 mt-1">
           {task.description}
         </p>
       )}
-      <div className="mt-2 text-xs text-gray-400">
+      <div className="mt-3 text-xs text-gray-500 font-medium">
         {new Date(task.createdAt!).toLocaleDateString()}
       </div>
     </div>
