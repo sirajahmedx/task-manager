@@ -44,7 +44,7 @@ export default function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
             </button>
             <button
               onClick={handleDelete}
-              className="p-1 text-gray-400 hover:text-red-500 transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-red-400"
+              className="p-1 text-gray-500 hover:text-red-500 transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-red-400"
               title="Delete task"
             >
               <Trash2 size={15} />
@@ -53,11 +53,11 @@ export default function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
         )}
       </div>
       {task.description && (
-        <p className="text-gray-300 text-xs leading-5 line-clamp-3 mt-1">
+        <p className="text-gray-400 text-xs leading-5 line-clamp-3 mt-1">
           {task.description}
         </p>
       )}
-      <div className="mt-3 text-xs text-gray-500 font-medium">
+      <div className="mt-3 text-xs text-gray-600 font-medium">
         {new Date(task.createdAt!).toLocaleDateString()}
       </div>
     </div>

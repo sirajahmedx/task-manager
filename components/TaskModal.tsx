@@ -57,15 +57,15 @@ export default function TaskModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-black/60 via-black/40 to-blue-900/30 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-gray-100 animate-fade-in">
-        <div className="flex justify-between items-center p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900 tracking-tight">
+    <div className="fixed inset-0 bg-gradient-to-br from-black/80 via-gray-900/80 to-blue-950/80 flex items-center justify-center z-50 p-4">
+      <div className="bg-gray-900 rounded-2xl w-full max-w-md shadow-2xl border border-gray-800 animate-fade-in">
+        <div className="flex justify-between items-center p-6 border-b border-gray-800">
+          <h2 className="text-xl font-bold text-white tracking-tight">
             {task ? "Edit Task" : "Create New Task"}
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-blue-600 transition-colors rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-gray-400 hover:text-blue-400 transition-colors rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Close"
           >
             <X size={22} />
@@ -76,16 +76,16 @@ export default function TaskModal({
           <div>
             <label
               htmlFor="title"
-              className="block text-sm font-semibold text-gray-700 mb-2"
+              className="block text-sm font-semibold text-gray-200 mb-2"
             >
-              Title <span className="text-red-500">*</span>
+              Title <span className="text-red-400">*</span>
             </label>
             <input
               type="text"
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 text-gray-900 placeholder-gray-400 transition-all shadow-sm"
+              className="w-full px-4 py-2 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-800 text-gray-100 placeholder-gray-500 transition-all shadow-sm"
               placeholder="Enter task title"
               required
             />
@@ -94,7 +94,7 @@ export default function TaskModal({
           <div>
             <label
               htmlFor="description"
-              className="block text-sm font-semibold text-gray-700 mb-2"
+              className="block text-sm font-semibold text-gray-200 mb-2"
             >
               Description
             </label>
@@ -103,7 +103,7 @@ export default function TaskModal({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 text-gray-900 placeholder-gray-400 transition-all shadow-sm resize-none"
+              className="w-full px-4 py-2 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-800 text-gray-100 placeholder-gray-500 transition-all shadow-sm resize-none"
               placeholder="Enter task description (optional)"
             />
           </div>
@@ -111,7 +111,7 @@ export default function TaskModal({
           <div>
             <label
               htmlFor="status"
-              className="block text-sm font-semibold text-gray-700 mb-2"
+              className="block text-sm font-semibold text-gray-200 mb-2"
             >
               Status
             </label>
@@ -121,7 +121,7 @@ export default function TaskModal({
               onChange={(e) =>
                 setStatus(e.target.value as "todo" | "doing" | "done")
               }
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50 text-gray-900 transition-all shadow-sm"
+              className="w-full px-4 py-2 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-800 text-gray-100 transition-all shadow-sm"
             >
               <option value="todo">To-Do</option>
               <option value="doing">Doing</option>
@@ -133,7 +133,7 @@ export default function TaskModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium shadow-sm border border-gray-200"
+              className="px-5 py-2 text-gray-200 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors font-medium shadow-sm border border-gray-700"
             >
               Cancel
             </button>
