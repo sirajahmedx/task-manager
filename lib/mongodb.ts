@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/task-manager';
+const MONGODB_URI = process.env.MONGODB_URI ?? 'mongodb://localhost:27017/task-manager';
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+  throw new Error('Missing MONGODB_URI. Define it in .env.local');
 }
 
 interface MongooseCache {
@@ -12,38 +12,31 @@ interface MongooseCache {
 }
 
 declare global {
-  var mongoose: MongooseCache | undefined;
+  var _mongooseCache: MongooseCache | undefined;
 }
 
-let cached = global.mongoose;
+let cache = global._mongooseCache;
 
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+if (!cache) {
+  cache = global._mongooseCache = { conn: null, promise: null };
 }
 
-async function dbConnect() {
-  if (cached!.conn) {
-    return cached!.conn;
-  }
+const dbConnect = async (): Promise<typeof mongoose> => {
+  if (cache.conn) return cache.conn;
 
-  if (!cached!.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
-
-    cached!.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
+  if (!cache.promise) {
+    const options = { bufferCommands: false };
+    cache.promise = mongoose.connect(MONGODB_URI, options).then((db) => db);
   }
 
   try {
-    cached!.conn = await cached!.promise;
-  } catch (e) {
-    cached!.promise = null;
-    throw e;
+    cache.conn = await cache.promise;
+  } catch (err) {
+    cache.promise = null;
+    throw err;
   }
 
-  return cached!.conn;
-}
+  return cache.conn;
+};
 
 export default dbConnect;
