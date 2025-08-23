@@ -5,8 +5,11 @@ import { ITask } from "@/models/Task";
 import TaskColumn from "@/components/TaskColumn";
 import TaskModal from "@/components/TaskModal";
 import { Kanban } from "lucide-react";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session } = useSession();
+  console.log("User session:", session);
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
