@@ -9,7 +9,10 @@ import { useSession } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
-  console.log("User session:", session);
+  const user = session?.user?.id;
+  console.log("User ID in Home component:", user);
+  console.log("Session data:", session);
+
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
@@ -18,10 +21,10 @@ export default function Home() {
   );
   const [loading, setLoading] = useState(true);
 
-  // Fetch tasks from API
   const fetchTasks = async () => {
     try {
-      const response = await fetch("/api/tasks");
+      console.log("Fetching tasks for user ID:", user);
+      const response = await fetch(`/api/tasks?user=${user}`);
       const data = await response.json();
 
       if (data.success) {
@@ -35,14 +38,17 @@ export default function Home() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    if (user) {
+      fetchTasks();
+    }
+  }, [user]);
 
   // Create or update task
   const handleSubmitTask = async (taskData: Partial<ITask>) => {
     try {
+      const { ...rest } = taskData;
+      const updatedTaskData = { ...rest, user };
       const isEditing = selectedTask !== null;
       const url = isEditing ? `/api/tasks/${selectedTask._id}` : "/api/tasks";
       const method = isEditing ? "PUT" : "POST";
@@ -52,7 +58,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(taskData),
+        body: JSON.stringify(updatedTaskData),
       });
 
       const data = await response.json();

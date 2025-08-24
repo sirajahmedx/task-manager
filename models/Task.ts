@@ -5,6 +5,7 @@ export interface ITask {
   title: string;
   description?: string;
   status: 'todo' | 'doing' | 'done';
+  user: mongoose.Schema.Types.ObjectId | string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -26,6 +27,11 @@ const TaskSchema = new mongoose.Schema<ITask>(
       type: String,
       enum: ['todo', 'doing', 'done'],
       default: 'todo',
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
   },

@@ -9,43 +9,46 @@ export async function PUT(
 ) {
   try {
     await dbConnect();
-    
+
     const { id } = params;
-    
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
         { success: false, error: 'Invalid task ID' },
         { status: 400 }
       );
     }
-    
+
     const body = await request.json();
-    const { title, description, status } = body;
-    
+    const { title, description, status, user } = body;
+
     if (!title || title.trim() === '') {
       return NextResponse.json(
         { success: false, error: 'Title is required' },
         { status: 400 }
       );
     }
-    
+
+    const objectId = new mongoose.Types.ObjectId(id);
+
     const task = await Task.findByIdAndUpdate(
-      id,
+      objectId,
       {
         title: title.trim(),
         description: description?.trim() || '',
         status,
+        user,
       },
       { new: true, runValidators: true }
     );
-    
+
     if (!task) {
       return NextResponse.json(
         { success: false, error: 'Task not found' },
         { status: 404 }
       );
     }
-    
+
     return NextResponse.json({ success: true, data: task });
   } catch (error) {
     console.error('Error updating task:', error);
