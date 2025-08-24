@@ -4,7 +4,7 @@ export interface ITask {
   _id?: string;
   title: string;
   description?: string;
-  status: 'todo' | 'doing' | 'done';
+  status: 'todo' | 'doing' | 'done' | 'backlog';
   user: mongoose.Schema.Types.ObjectId | string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -25,7 +25,7 @@ const TaskSchema = new mongoose.Schema<ITask>(
     },
     status: {
       type: String,
-      enum: ['todo', 'doing', 'done'],
+      enum: ['todo', 'doing', 'done', 'backlog'], // Ensure 'backlog' is present
       default: 'todo',
       required: true,
     },

@@ -9,7 +9,7 @@ interface TaskModalProps {
   onClose: () => void;
   onSubmit: (task: Partial<ITask>) => void;
   task?: ITask | null;
-  defaultStatus?: "todo" | "doing" | "done";
+  defaultStatus?: "todo" | "doing" | "done" | "backlog";
 }
 
 export default function TaskModal({
@@ -21,7 +21,7 @@ export default function TaskModal({
 }: TaskModalProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState<"todo" | "doing" | "done">(
+  const [status, setStatus] = useState<"todo" | "doing" | "done" | "backlog">(
     defaultStatus
   );
 
@@ -119,10 +119,13 @@ export default function TaskModal({
               id="status"
               value={status}
               onChange={(e) =>
-                setStatus(e.target.value as "todo" | "doing" | "done")
+                setStatus(
+                  e.target.value as "todo" | "doing" | "done" | "backlog"
+                )
               }
               className="w-full px-4 py-2 border border-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-800 text-gray-100 transition-all shadow-sm"
             >
+              <option value="done">Back-Log</option>
               <option value="todo">To-Do</option>
               <option value="doing">Doing</option>
               <option value="done">Done</option>

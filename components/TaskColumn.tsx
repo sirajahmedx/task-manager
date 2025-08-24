@@ -6,12 +6,12 @@ import { Plus } from "lucide-react";
 
 interface TaskColumnProps {
   title: string;
-  status: "todo" | "doing" | "done";
+  status: "todo" | "doing" | "done" | "backlog";
   tasks: ITask[];
-  onAddTask: (status: "todo" | "doing" | "done") => void;
+  onAddTask: (status: "todo" | "doing" | "done" | "backlog") => void;
   onEditTask: (task: ITask) => void;
   onDeleteTask: (taskId: string) => void;
-  onDropTask: (taskId: string, newStatus: "todo" | "doing" | "done") => void;
+  onDropTask: (taskId: string, newStatus: "todo" | "doing" | "done" | "backlog") => void;
 }
 
 export default function TaskColumn({
