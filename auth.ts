@@ -4,7 +4,6 @@ import dbConnect from "./lib/mongodb";
 import User from "./models/User";
 import { JWT } from "next-auth/jwt";
 
-// Extend the built-in session types
 declare module "next-auth" {
   interface Session {
     user: {
@@ -23,12 +22,7 @@ declare module "next-auth/jwt" {
 }
 
 export const authOptions: NextAuthConfig = {
-  providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    })
-  ],
+  providers: [Google],
   callbacks: {
     async signIn({ user }: { user: NextAuthUser }) {
       try {

@@ -9,6 +9,7 @@ import { signOut, useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function Home(): JSX.Element {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const user = session?.user?.id;
 
@@ -195,7 +196,7 @@ export default function Home(): JSX.Element {
   };
 
   const handleSignIn = (): void => {
-    signIn();
+    router.push("/sign-in");
   };
 
   const handleSignOut = (): void => {
@@ -211,26 +212,25 @@ export default function Home(): JSX.Element {
     );
   }
 
-  // Show sign-in prompt for unauthenticated users
-  if (status === "unauthenticated") {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-gray-900 text-white flex items-center justify-center">
-        <div className="text-center">
-          <Kanban className="text-blue-500 mx-auto mb-4" size={48} />
-          <h1 className="text-3xl font-bold mb-4">Task Manager</h1>
-          <p className="text-gray-400 mb-6">
-            Please sign in to manage your tasks
-          </p>
-          <button
-            onClick={handleSignIn}
-            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow transition-all duration-150"
-          >
-            Sign In
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // if (status === "unauthenticated") {
+  //   return (
+  //     <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-gray-900 text-white flex items-center justify-center">
+  //       <div className="text-center">
+  //         <Kanban className="text-blue-500 mx-auto mb-4" size={48} />
+  //         <h1 className="text-3xl font-bold mb-4">Task Manager</h1>
+  //         <p className="text-gray-400 mb-6">
+  //           Please sign in to manage your tasks
+  //         </p>
+  //         <button
+  //           onClick={handleSignIn}
+  //           className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow transition-all duration-150"
+  //         >
+  //           Sign In
+  //         </button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   // Show error state if there's an error
   if (error) {
@@ -270,32 +270,44 @@ export default function Home(): JSX.Element {
             </h1>
           </div>
           <div className="flex items-center gap-4">
-            <button
-              onClick={handleSignOut}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold shadow transition-all duration-150"
-            >
-              Sign Out
-            </button>
-            <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-slate-900/70 border border-slate-800">
-              <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-700">
-                {session?.user?.image ? (
-                  <img
-                    src={session.user.image}
-                    alt={session.user.name || "User"}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                ) : (
-                  <span className="text-lg font-semibold text-white">
-                    {session?.user?.name
-                      ? session.user.name[0].toUpperCase()
-                      : "U"}
-                  </span>
-                )}
+            {session?.user ? (
+              <button
+                onClick={handleSignOut}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold shadow transition-all duration-150"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <button
+                onClick={handleSignIn}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold shadow transition-all duration-150"
+              >
+                Sign In
+              </button>
+            )}
+
+            {session?.user && (
+              <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-slate-900/70 border border-slate-800">
+                <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-700">
+                  {session?.user?.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || "User"}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <span className="text-lg font-semibold text-white">
+                      {session?.user?.name
+                        ? session.user.name[0].toUpperCase()
+                        : "U"}
+                    </span>
+                  )}
+                </div>
+                <span className="text-sm text-white font-medium">
+                  {session?.user?.name || session?.user?.email}
+                </span>
               </div>
-              <span className="text-sm text-white font-medium">
-                {session?.user?.name || session?.user?.email}
-              </span>
-            </div>
+            )}
           </div>
         </div>
       </header>
