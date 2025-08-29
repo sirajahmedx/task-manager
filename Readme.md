@@ -1,5 +1,7 @@
 # Task Manager
 
+> ⭐ **If you liked this project (or anything else I've built), please leave a star!**
+
 A full-stack Kanban-style task management application built with Next.js, MongoDB, and NextAuth. This project allows users to authenticate via Google, create, update, and delete tasks, and manage their workflow visually.
 
 ---
